@@ -14,8 +14,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '../../users-list.component';
+
 import {MatTooltipModule} from '@angular/material/tooltip' 
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -37,7 +38,7 @@ export class EditUserDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<EditUserDialogComponent>);
 
   public form = new FormGroup({
-    name: new FormControl('', [
+    name: new FormControl(this.data.user.name, [
       Validators.required,
       Validators.minLength(2),
     ]),

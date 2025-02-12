@@ -1,18 +1,6 @@
-import { NgFor } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogModule,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
-import {
-  MatIconModule,
-} from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { DeleteTodoDialogComponent } from '../delete-todo-dialog/delete-todo-dialog.component';
 import { ITodo } from '../../interfaces/todo.interface';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -22,7 +10,7 @@ import { TitleLimitPipe } from '../../Pipes/title-limit.pipe';
   templateUrl: './todo-card.component.html',
   styleUrl: './todo-card.component.scss',
   standalone: true,
-  imports: [MatIconModule, MatDialogModule, MatSnackBarModule, TitleLimitPipe, ],
+  imports: [MatIconModule, MatDialogModule, MatSnackBarModule, TitleLimitPipe],
 })
 export class TodoCardComponent {
   @Input()

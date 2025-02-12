@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { User } from '../users-list.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import {
   MAT_DIALOG_DATA,
@@ -18,6 +18,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { CustomUpperCasePipe } from '../../Pipes/upper-case.pipe';
 import { RedDirective } from '../../directives/red.directive';
 import { ShadowDirective } from '../../directives/shadow-card.directive';
+import { Store } from '@ngrx/store';
+import { userActions } from '../state/user.actions';
+import { User } from '../../interfaces/user.interface';
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
@@ -34,6 +37,7 @@ import { ShadowDirective } from '../../directives/shadow-card.directive';
   ],
 })
 export class UserCardComponent {
+  private readonly store = inject (Store);
   @Input()
   user!: User;
 
@@ -61,20 +65,16 @@ export class UserCardComponent {
       } else
         this.snackBar.open('Отмена удаления', 'Ок', {
           duration: 10000,
-          horizontalPosition: 'right', // Положение по горизонтали
+          horizontalPosition: 'right', 
           verticalPosition: 'bottom',
         });
     });
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
-      data: { user: this.user },
+      data: { user: this.user }, 
     });
-
-    //     dialogRef.afterClosed().subscribe((editResult) => {
-    //       console.log('Модалка Закрылась, Значение формы:', editResult);
-    //       this.editUser.emit(editResult);
-    //     });
-    //   }
+    dialogRef.afterClosed().subscribe((user: User) => 
+    { this.store.dispatch(userActions.edit({ user}));})
   }
 }
